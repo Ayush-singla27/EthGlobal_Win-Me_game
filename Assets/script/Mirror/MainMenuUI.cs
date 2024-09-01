@@ -4,12 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 using TMPro;
+using Cinemachine;
 
 public class MainMenuUI : MonoBehaviour
 {
     NetworkManager manager;
     [SerializeField] private GameObject playerNameInputField;
     private string playerName;
+
+    public GameObject mainMenuCanvas;
+    public GameObject carSelectCanvas;
+
+    public CinemachineVirtualCamera mainMenuCam;
+    public CinemachineVirtualCamera shopCam;
+
+    private int[] shopCamYPos ;
+    private int shopCamYPosItr = 0 ;
 
     void Awake()
     {
@@ -21,6 +31,8 @@ public class MainMenuUI : MonoBehaviour
             if (ushort.TryParse("localhost", out ushort port))
                 portTransport.Port = port;
         }
+
+        shopCamYPos = new int[]{9, 0 , -9};
     }
 
     public void StartButtonClicked()
@@ -86,4 +98,76 @@ public class MainMenuUI : MonoBehaviour
             }
         }
     }
+
+    public void SelectCarButtonClicked()
+    {
+        if (!NetworkClient.active)
+        {
+            Debug.Log("select car Button Clicked");
+
+            if (manager == null)
+            {
+                Debug.LogError("NetworkManager not found");
+                return;
+            }
+
+            mainMenuCam.Priority = 0;
+            shopCam.Priority = 10;
+            mainMenuCanvas.SetActive(false);
+            carSelectCanvas.SetActive(true);
+             
+        }
+    }
+
+
+    // carShopCanvas button function below
+    public void BackToMainMenuButtonClicked()
+    {
+        if (!NetworkClient.active)
+        {
+            if (manager == null)
+            {
+                Debug.LogError("NetworkManager not found");
+                return;
+            }
+
+            mainMenuCam.Priority = 10;
+            shopCam.Priority = 0;
+            carSelectCanvas.SetActive(false);
+            mainMenuCanvas.SetActive(true);
+            
+        }
+    }
+
+    public void RightButtonClicked()
+    {
+        if (!NetworkClient.active)
+        {
+
+            if (manager == null)
+            {
+                Debug.LogError("NetworkManager not found");
+                return;
+            }
+            shopCamYPosItr = (shopCamYPosItr+1)%3;
+            shopCam.transform.position = new Vector3(shopCamYPos[shopCamYPosItr], 7f, 7);
+            
+        }
+    }
+
+    public void LeftButtonClicked()
+    {
+        if (!NetworkClient.active)
+        {
+            if (manager == null)
+            {
+                Debug.LogError("NetworkManager not found");
+                return;
+            }
+            shopCamYPosItr = (shopCamYPosItr-1)%3;
+            shopCam.transform.position = new Vector3(shopCamYPos[shopCamYPosItr], 7f, 7);
+            
+        }
+    }
+
 }
