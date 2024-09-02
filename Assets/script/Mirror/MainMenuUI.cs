@@ -6,7 +6,7 @@ using Mirror;
 using TMPro;
 using Cinemachine;
 
-public class MainMenuUI : NetworkBehaviour
+public class MainMenuUI : MonoBehaviour
 {
     NetworkManager manager;
     [SerializeField] private GameObject playerNameInputField;
