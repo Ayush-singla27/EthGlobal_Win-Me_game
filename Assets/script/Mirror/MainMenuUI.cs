@@ -23,7 +23,8 @@ public class MainMenuUI : MonoBehaviour
 
     void Awake()
     {
-        manager = GetComponent<NetworkManager>();
+        manager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+        if(manager == null)Debug.LogError("ggg");
         manager.networkAddress = "localhost";
 
         if (Transport.active is PortTransport portTransport)
