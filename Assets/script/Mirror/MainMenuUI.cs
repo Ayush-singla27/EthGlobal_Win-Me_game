@@ -6,7 +6,7 @@ using Mirror;
 using TMPro;
 using Cinemachine;
 
-public class MainMenuUI : MonoBehaviour
+public class MainMenuUI : NetworkBehaviour
 {
     NetworkManager manager;
     [SerializeField] private GameObject playerNameInputField;
@@ -169,5 +169,27 @@ public class MainMenuUI : MonoBehaviour
             
         }
     }
+    
+    public void SelectButtonClicked()
+    {
+        if (!NetworkClient.active)
+        {
+            if (manager == null)
+            {
+                Debug.LogError("NetworkManager not found");
+                return;
+            }
+
+            BackToMainMenuButtonClicked();
+            // UpdateCarArrayItr();
+            GameObject.Find("NetworkManager").GetComponent<MirrorNetworkManager>().carPrefabItr = shopCamYPosItr;
+            
+        }
+    }
+
+    // [Command]
+    // public void UpdateCarArrayItr(){
+    //     GameObject.Find("NetworkManager").GetComponent<MirrorNetworkManager>().carPrefabItr = shopCamYPosItr;
+    // }
 
 }

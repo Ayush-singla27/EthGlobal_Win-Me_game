@@ -87,6 +87,9 @@ public class MirrorNetworkManager : NetworkManager
     private int playerCount = 0;
     public int noOfPlayers = 1;
 
+    public GameObject[] carPrefabs ;
+    public int carPrefabItr =0;
+
     private void Start()
     {
         Transform firstChild = transform.GetChild(0);
@@ -117,8 +120,9 @@ public class MirrorNetworkManager : NetworkManager
         }
 
         Vector3 start = new Vector3(0, 40f, 0);
-        GameObject player = Instantiate(playerPrefab, start, Quaternion.identity);
-        
+        // GameObject player = Instantiate(playerPrefab, start, Quaternion.identity);
+        GameObject player = Instantiate(carPrefabs[carPrefabItr], start, Quaternion.identity);
+        Debug.Log("!!!!!!!!!!!"+carPrefabItr);
         NetworkServer.AddPlayerForConnection(conn, player);
         Debug.Log("Player spawned");
         
