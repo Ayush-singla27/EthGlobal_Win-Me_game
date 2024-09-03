@@ -21,6 +21,7 @@ public class MainMenuUI : MonoBehaviour
     private int[] shopCamYPos ;
     private int shopCamYPosItr = 0 ;
 
+    public GameObject ManagerItr;
     void Awake()
     {
         manager = GetComponent<NetworkManager>();
@@ -42,8 +43,9 @@ public class MainMenuUI : MonoBehaviour
             Debug.LogError("NetworkManager not found");
             return;
         }
-
+        
         manager.StartClient();
+        ManagerItr.GetComponent<ManagerItr>().UpdateItr(shopCamYPosItr);
         StartCoroutine(WaitForLocalPlayerAndSetPlayerName());
     }
 
@@ -182,7 +184,10 @@ public class MainMenuUI : MonoBehaviour
 
             BackToMainMenuButtonClicked();
             // UpdateCarArrayItr();
-            GameObject.Find("NetworkManager").GetComponent<MirrorNetworkManager>().carPrefabItr = shopCamYPosItr;
+            // ManagerItr.GetComponent<ManagerItr>().UpdateItr(shopCamYPosItr);
+            // if(ManagerItr.GetComponent<ManagerItr>() == null){
+            //     Debug.Log("gggggggggggggggggg");
+            // }
             
         }
     }

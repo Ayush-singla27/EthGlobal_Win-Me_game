@@ -6110,6 +6110,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1222091319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1222091322}
+  - component: {fileID: 1222091321}
+  - component: {fileID: 1222091323}
+  m_Layer: 0
+  m_Name: ItrManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1222091321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222091319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2272471650
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!4 &1222091322
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222091319}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 496.17767, y: 94.500015, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1222091323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222091319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ebe30267e1d23345928d9609d6a9613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  carPrefabItr: 0
 --- !u!1 &1232469949
 GameObject:
   m_ObjectHideFlags: 0
@@ -10108,6 +10174,7 @@ MonoBehaviour:
   - {fileID: 4804685132883225272, guid: e835a124491425d429084f705593c8a0, type: 3}
   - {fileID: 2147332149146419459, guid: 1687c2a015eb61441a5b21b4af8b6402, type: 3}
   carPrefabItr: 0
+  managerItr: {fileID: 1222091319}
 --- !u!114 &1945648348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10120,14 +10187,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc657277f2ec6c47976d3be43db8848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   playerNameInputField: {fileID: 1476424238}
   mainMenuCanvas: {fileID: 418165029516762596}
   carSelectCanvas: {fileID: 1889769085}
   mainMenuCam: {fileID: 1334776425}
   shopCam: {fileID: 1942874182}
+  ManagerItr: {fileID: 1222091319}
 --- !u!1 &1950931108
 GameObject:
   m_ObjectHideFlags: 0
@@ -32086,3 +32151,4 @@ SceneRoots:
   - {fileID: 783344025}
   - {fileID: 4958712358282773450}
   - {fileID: 1183974326}
+  - {fileID: 1222091322}
