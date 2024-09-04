@@ -45,7 +45,7 @@ public class MainMenuUI : MonoBehaviour
         }
         
         manager.StartClient();
-        ManagerItr.GetComponent<ManagerItr>().UpdateItr(shopCamYPosItr);
+        
         StartCoroutine(WaitForLocalPlayerAndSetPlayerName());
     }
 
@@ -184,7 +184,7 @@ public class MainMenuUI : MonoBehaviour
 
             BackToMainMenuButtonClicked();
             // UpdateCarArrayItr();
-            // ManagerItr.GetComponent<ManagerItr>().UpdateItr(shopCamYPosItr);
+            ManagerItr.GetComponent<ItrManager>().UpdateItr(shopCamYPosItr);
             // if(ManagerItr.GetComponent<ManagerItr>() == null){
             //     Debug.Log("gggggggggggggggggg");
             // }

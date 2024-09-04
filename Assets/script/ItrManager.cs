@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Mirror;
 using UnityEngine;
-
-public class ManagerItr : NetworkBehaviour
+using Mirror;
+public class ItrManager : NetworkBehaviour
 {
     public int carPrefabItr=0;
 
@@ -11,11 +10,9 @@ public class ManagerItr : NetworkBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
-
     [Command]
     public void UpdateItr(int val)
     {
-        Debug.Log("gggg" + val);
         carPrefabItr = val;
     }
 }
