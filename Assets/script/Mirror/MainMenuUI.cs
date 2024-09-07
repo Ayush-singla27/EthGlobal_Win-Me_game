@@ -19,7 +19,7 @@ public class MainMenuUI : MonoBehaviour
     public CinemachineVirtualCamera shopCam;
 
     private int[] shopCamYPos ;
-    private int shopCamYPosItr = 0 ;
+    public int shopCamYPosItr = 0 ;
 
     public GameObject ManagerItr;
     void Awake()
@@ -152,6 +152,7 @@ public class MainMenuUI : MonoBehaviour
                 return;
             }
             shopCamYPosItr = (shopCamYPosItr+1)%3;
+            StaticVariables.kartPrefabIndex = shopCamYPosItr;
             shopCam.transform.position = new Vector3(shopCamYPos[shopCamYPosItr], 7f, 7);
             
         }
@@ -167,6 +168,7 @@ public class MainMenuUI : MonoBehaviour
                 return;
             }
             shopCamYPosItr = (shopCamYPosItr-1)%3;
+            StaticVariables.kartPrefabIndex = shopCamYPosItr;
             shopCam.transform.position = new Vector3(shopCamYPos[shopCamYPosItr], 7f, 7);
             
         }
@@ -184,7 +186,7 @@ public class MainMenuUI : MonoBehaviour
 
             BackToMainMenuButtonClicked();
             // UpdateCarArrayItr();
-            ManagerItr.GetComponent<ItrManager>().UpdateItr(shopCamYPosItr);
+            //ManagerItr.GetComponent<ItrManager>().UpdateItr(shopCamYPosItr);
             // if(ManagerItr.GetComponent<ManagerItr>() == null){
             //     Debug.Log("gggggggggggggggggg");
             // }
