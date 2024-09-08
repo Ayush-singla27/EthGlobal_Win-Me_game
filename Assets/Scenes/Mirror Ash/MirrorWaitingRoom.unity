@@ -6688,7 +6688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1097404894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6710,6 +6710,7 @@ MonoBehaviour:
   launchWalletServicesButton: {fileID: 313171107}
   signMessageButton: {fileID: 1162943161}
   signResponseButton: {fileID: 874334930}
+  mainMenu: {fileID: 418165029516762596}
 --- !u!114 &1097404895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12689,8 +12690,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5203276184872143556}
   - {fileID: 1097404898}
+  - {fileID: 5203276184872143556}
   - {fileID: 497649278}
   - {fileID: 1889769089}
   m_Father: {fileID: 0}
@@ -14685,7 +14686,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65.65
+  m_fontSize: 34.75
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -15201,7 +15202,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.5
+  m_fontSize: 35.6
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -15859,7 +15860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &419001770898293663
 Transform:
   m_ObjectHideFlags: 0
@@ -23149,7 +23150,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 63.9
+  m_fontSize: 33.05
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1

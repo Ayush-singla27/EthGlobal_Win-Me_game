@@ -1,18 +1,20 @@
-using System;
-using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+using TMPro;
+using Nethereum.Web3;
+using Nethereum.Util;
+using Nethereum.Signer;
+using Nethereum.Hex.HexConvertors.Extensions;
+using Nethereum.ABI.Encoders;
+using Nethereum.Hex.HexTypes;
+using Nethereum.Web3.Accounts;
+using Nethereum.Web3.Accounts.Managed;
 using Newtonsoft.Json.Linq;
-using static Web3Auth;
-using Org.BouncyCastle.Asn1.Sec;
-using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.Math;
-using Org.BouncyCastle.Math.EC;
-using Org.BouncyCastle.Security;
-using Org.BouncyCastle.Utilities.Encoders;
-using Org.BouncyCastle.Crypto.Digests;
 
 public class Authentication : MonoBehaviour
 {   
@@ -62,6 +64,11 @@ public class Authentication : MonoBehaviour
     [SerializeField]
     Button signResponseButton;
 
+    [SerializeField]
+    GameObject mainMenu;
+
+    const string rpcURL = "https://rpc.WinMe.com/eth";
+
     void Start()
     {
         var loginConfigItem = new LoginConfigItem()
@@ -71,32 +78,13 @@ public class Authentication : MonoBehaviour
             clientId = "your_clientId_from_web3auth_dashboard"
         };
 
+        var clientID = "BKEUunaSgB08d9_NKfEUWpqyJKnHJ20cTqLLF2UUWr8i2l--bcD_qZTto8s6tINL9HDJI6WEtyNiB2YtCU8UbB4";
+
         web3Auth = GetComponent<Web3Auth>();
         web3Auth.setOptions(new Web3AuthOptions()
         {
-            whiteLabel = new WhiteLabelData()
-            {
-                appName = "Web3Auth Sample App",
-                logoLight = null,
-                logoDark = null,
-                defaultLanguage = Language.en,
-                mode = ThemeModes.dark,
-                theme = new Dictionary<string, string>
-                {
-                    { "primary", "#FFBF00" }
-                }
-            },
-            // If using your own custom verifier, uncomment this code. 
-            /*
-            ,
-            loginConfig = new Dictionary<string, LoginConfigItem>
-            {
-                {"CUSTOM_VERIFIER", loginConfigItem}
-            }
-            */
-            clientId = "BKEUunaSgB08d9_NKfEUWpqyJKnHJ20cTqLLF2UUWr8i2l--bcD_qZTto8s6tINL9HDJI6WEtyNiB2YtCU8UbB4",
-            buildEnv = BuildEnv.TESTING,
-            redirectUrl = new Uri("torusapp://com.torus.Web3AuthUnity/auth"),
+            clientId = clientID,
+            redirectUrl = new System.Uri("winme://com.web3auth.winme/auth"),
             network = Web3Auth.Network.SAPPHIRE_DEVNET,
             sessionTime = 86400
         });
@@ -117,7 +105,7 @@ public class Authentication : MonoBehaviour
         logoutButton.onClick.AddListener(logout);
         mfaSetupButton.onClick.AddListener(enableMFA);
         launchWalletServicesButton.onClick.AddListener(launchWalletServices);
-        signMessageButton.onClick.AddListener(request);
+        //signMessageButton.onClick.AddListener(request);
 
         verifierDropdown.AddOptions(verifierList.Select(x => x.name).ToList());
         verifierDropdown.onValueChanged.AddListener(onVerifierDropDownChange);
@@ -128,6 +116,9 @@ public class Authentication : MonoBehaviour
         loginResponseText.text = JsonConvert.SerializeObject(response, Formatting.Indented);
         var userInfo = JsonConvert.SerializeObject(response.userInfo, Formatting.Indented);
         Debug.Log(userInfo);
+
+        gameObject.SetActive(false);
+        mainMenu.SetActive(true);
 
         loginButton.gameObject.SetActive(false);
         verifierDropdown.gameObject.SetActive(false);
@@ -241,49 +232,49 @@ public class Authentication : MonoBehaviour
         web3Auth.launchWalletServices(chainConfig);
     }
 
-    private void request()
-    {
-        var selectedProvider = verifierList[verifierDropdown.value].loginProvider;
+    //private void request()
+    //{
+    //    var selectedProvider = verifierList[verifierDropdown.value].loginProvider;
 
-        var chainConfig = new ChainConfig()
-        {
-            chainId = "0x89",
-            rpcTarget = "https://1rpc.io/matic",
-            chainNamespace = Web3Auth.ChainNamespace.EIP155
-        };
+    //    var chainConfig = new ChainConfig()
+    //    {
+    //        chainId = "0x89",
+    //        rpcTarget = "https://1rpc.io/matic",
+    //        chainNamespace = Web3Auth.ChainNamespace.EIP155
+    //    };
 
-        JArray paramsArray = new JArray
-        {
-            "Hello, World!",
-            getPublicAddressFromPrivateKey(web3Auth.getPrivKey()),
-            "Android"
-        };
+    //    JArray paramsArray = new JArray
+    //    {
+    //        "Hello, World!",
+    //        getPublicAddressFromPrivateKey(web3Auth.getPrivKey()),
+    //        "Android"
+    //    };
 
-        web3Auth.request(chainConfig, "personal_sign", paramsArray);
-    }
+    //    web3Auth.request(chainConfig, "personal_sign", paramsArray);
+    //}
 
-    public string getPublicAddressFromPrivateKey(string privateKeyHex)
-    {
-        byte[] privateKeyBytes = Hex.Decode(privateKeyHex);
+    //public string getPublicAddressFromPrivateKey(string privateKeyHex)
+    //{
+    //    byte[] privateKeyBytes = Hex.Decode(privateKeyHex);
 
-        // Create the EC private key parameters
-        BigInteger privateKeyInt = new BigInteger(1, privateKeyBytes);
-        var ecParams = SecNamedCurves.GetByName("secp256k1");
-        ECPoint q = ecParams.G.Multiply(privateKeyInt);
+    //    // Create the EC private key parameters
+    //    BigInteger privateKeyInt = new BigInteger(1, privateKeyBytes);
+    //    var ecParams = SecNamedCurves.GetByName("secp256k1");
+    //    ECPoint q = ecParams.G.Multiply(privateKeyInt);
 
-        // Get the public key bytes
-        byte[] publicKeyBytes = q.GetEncoded(false).Skip(1).ToArray();
+    //    // Get the public key bytes
+    //    byte[] publicKeyBytes = q.GetEncoded(false).Skip(1).ToArray();
 
-        // Compute the Keccak-256 hash of the public key
-        var digest = new KeccakDigest(256);
-        byte[] hash = new byte[digest.GetDigestSize()];
-        digest.BlockUpdate(publicKeyBytes, 0, publicKeyBytes.Length);
-        digest.DoFinal(hash, 0);
+    //    // Compute the Keccak-256 hash of the public key
+    //    var digest = new KeccakDigest(256);
+    //    byte[] hash = new byte[digest.GetDigestSize()];
+    //    digest.BlockUpdate(publicKeyBytes, 0, publicKeyBytes.Length);
+    //    digest.DoFinal(hash, 0);
 
-        // Take the last 20 bytes of the hash as the address
-        byte[] addressBytes = hash.Skip(12).ToArray();
-        string publicAddress = "0x" + BitConverter.ToString(addressBytes).Replace("-", "").ToLower();
+    //    // Take the last 20 bytes of the hash as the address
+    //    byte[] addressBytes = hash.Skip(12).ToArray();
+    //    string publicAddress = "0x" + BitConverter.ToString(addressBytes).Replace("-", "").ToLower();
 
-        return publicAddress;
-    }
+    //    return publicAddress;
+    //}
 }
